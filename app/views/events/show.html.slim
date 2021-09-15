@@ -36,7 +36,7 @@ h1.mt-3.mb-3= @event.name
     .card.mb-2
       h5.card-header 参加者一覧
       ul.list-group.list-group-flush
-        = @tickets
+        = render partial: 'tickets/ticket', collection: @tickets
 
 
 .modal.fade#createTicket
