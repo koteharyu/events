@@ -19,5 +19,5 @@ h1.mt-3.mb-3= @event.name
     | 主催者
   .card-body
     = link_to "https://github.com/#{@event.owner.name}", class: 'card-link' do
-      = image_tag @event.owner.image_url, width: 50, height: 50
+      = image_tag @event.owner.image_url, width: 50, height: 50, class: 'mr-3 rounded-circle'
       = "@#{@event.owner.name}"
