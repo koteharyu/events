@@ -8,6 +8,8 @@ class Event < ApplicationRecord
 
   belongs_to :owner, class_name: 'User'
 
+  scope :not_held_events, -> { where('start_at > ?', Time.zone.now).order(:start_at) }
+
   private
 
   def start_at_should_be_before_end_at
