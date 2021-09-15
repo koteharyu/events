@@ -1,0 +1,24 @@
+doctype html
+html
+  head
+    title
+      | Events
+    meta[name="viewport" content="width=device-width,initial-scale=1"]
+    = csrf_meta_tags
+    = csp_meta_tag
+    = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
+    = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
+  body
+    header.navbar.navbar-expand-sm.navbar-light.bg-light
+      .container
+        = link_to "Events", root_path, class: 'navbar-brand'
+        ul.navbar-nav
+          - if logged_in?
+            li.nav-item
+              = link_to "ログアウト", logout_path, class: 'nav-link', method: :delete
+          - else
+            li.nav-item
+              = link_to "githubでログイン", '/auth/github', class: 'nav-link', method: :post
+    .container
+      = render 'shared/flash_messages'
+      = yield
