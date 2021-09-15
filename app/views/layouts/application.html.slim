@@ -12,5 +12,9 @@ html
     header.navbar.navbar-expand-sm.navbar-light.bg-light
       .container
         = link_to "Events", root_path, class: 'navbar-brand'
+        ul.navbar-nav
+          li.nav-item
+            = link_to "githubでログイン", '/auth/github', class: 'nav-link', method: :post
     .container
+      = render 'shared/flash_messages'
       = yield
