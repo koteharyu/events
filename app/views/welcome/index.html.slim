@@ -1,4 +1,8 @@
 h1 イベント一覧
 
-ul.list-group.styled-
+ul.list-group
   = render @events
+
+- if @event.blank?
+  h5.text-center.mt-5
+    | 未開催のイベントはありません
