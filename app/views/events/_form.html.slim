@@ -19,10 +19,10 @@
     = f.text_area :content, class: 'form-control'
   .form-group
     = f.label :image
-    - if event.image.attached?
+    - if event.image.attached? && event.image.blob&.persisted?
       = image_tag event.image, class: 'img-thumbnail d-block mb-3', width: 200, height: 200
     = f.file_field :image, class: 'form-control-file'
-    - if event.image.attached?
+    - if event.image.attached? && event.image.blob&.persisted?
       .checkbox
         = f.check_box :remove_image
         = f.label "画像を削除する", class: 'ml-2'

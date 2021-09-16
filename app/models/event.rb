@@ -7,6 +7,7 @@ class Event < ApplicationRecord
   validates :content, presence: true, length: { maximum: 2000 }
   validates :start_at, presence: true
   validates :end_at, presence: true
+  validates :image, content_type: [:png, :jpg, :jpeg]
   validate :start_at_should_be_before_end_at
 
   belongs_to :owner, class_name: 'User'
