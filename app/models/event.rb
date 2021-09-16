@@ -8,7 +8,7 @@ class Event < ApplicationRecord
   validates :start_at, presence: true
   validates :end_at, presence: true
   validates :image, content_type: [:png, :jpg, :jpeg], size: { less_than_or_equal_to: 10.megabytes },
-                    demension: { width: { max: 2000 }, height: { max: 2000 } }
+                    dimension: { width: { max: 2000 }, height: { max: 2000 } }
   validate :start_at_should_be_before_end_at
 
   belongs_to :owner, class_name: 'User'
