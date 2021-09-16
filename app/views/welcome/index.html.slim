@@ -1,8 +1,10 @@
 h1 イベント一覧
 
-ul.list-group
-  = render @events
-
-- if @event.blank?
+- if @events
+  ul.list-group
+    = render @events
+- else
   h5.text-center.mt-5
     | 未開催のイベントはありません
+
+= paginate @events
