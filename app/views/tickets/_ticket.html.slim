@@ -1,7 +1,8 @@
 li.list-group-item
-  = link_to url_for_github(ticket.user), class: 'card-link' do
-    = image_tag ticket.user.image_url, width: 20, height: 20, class: 'rounded-circle mr-3'
-    = "@#{ticket.user.name}"
-    = ticket.comment
-
-
+  - if tikect.user
+    = link_to url_for_github(ticket.user), class: 'card-link' do
+      = image_tag ticket.user.image_url, width: 20, height: 20, class: 'rounded-circle mr-3'
+      = "@#{ticket.user.name}"
+      = ticket.comment
+  - else
+    退会したユーザーです
