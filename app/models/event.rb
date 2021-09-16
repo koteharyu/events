@@ -1,5 +1,6 @@
 class Event < ApplicationRecord
   attr_accessor :remove_image
+  searchkick language: "japanese"
   before_save :remove_image_if_user_accept
 
   validates :name, presence: true, length: { maximum: 50 }
@@ -34,6 +35,16 @@ class Event < ApplicationRecord
   end
 
   def remove_image_if_user_accept
-    image = nil if ActiveRecord::Type::Boolean.new.cast(remove_image)
+    self.image = nil if ActiveRecord::Type::Boolean.new.cast(remove_image)
+  end
+
+  def search_data
+    {
+      name: name,
+      place: place,
+      content: content,
+      owner_name: owner&.name,
+      start_at: start_at
+    }
   end
 end
