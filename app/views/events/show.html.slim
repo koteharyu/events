@@ -20,10 +20,42 @@ h1.mt-3.mb-3= @event.name
       h5.card-header
         | 主催者
       .card-body
-        = link_to "https://github.com/#{@event.owner.name}", class: 'card-link' do
-          = image_tag @event.owner.image_url, width: 50, height: 50, class: 'mr-3 rounded-circle'
-          = "@#{@event.owner.name}"
+        - if @event.owner
+          = link_to "https://github.com/#{@event.owner.name}", class: 'card-link' do
+            = image_tag @event.owner.image_url, width: 50, height: 50, class: 'mr-3 rounded-circle'
+            = "@#{@event.owner.name}"
+        - else
+          退会したユーザーです
   .col-4
     - if @event.created_by?(current_user)
       = link_to "イベントを編集する", edit_event_path(@event), class: 'btn btn-info btn-lg btn-block'
       = link_to "イベントを削除する", event_path(@event), class: 'btn btn-danger btn-lg btn-block', method: :delete, data: { confirm: "are you sure?"}
+    - if @ticket
+      = link_to "参加をキャンセルする", event_ticket_path(@event, @ticket), class: 'btn btn-warning btn-lg btn-block', method: :delete, data: { confirm: "are you sure?"}
+    - elsif logged_in?
+      button.btn.btn-primary.btn-lg.btn-block data-toggle="modal" data-target="#createTicket"
+        | 参加する
+    - else
+      = link_to "参加する", new_event_ticket_path(@event), class: 'btn btn-primary btn-lg btn-block'
+    hr
+    .card.mb-2
+      h5.card-header 参加者一覧
+      ul.list-group.list-group-flush
+        = render partial: 'tickets/ticket', collection: @tickets
+
+
+.modal.fade#createTicket
+  .modal-dialog
+    .modal-content
+      .modal-header
+        h4.modal-title#dialogHeader
+          | 参加コメント
+        button.close type="button" data-dismiss="modal"
+          | &times;
+      = form_with model: @event.tickets.build, url: event_tickets_path(@event) do |f|
+        .modal-body
+          = f.text_field :comment, class: 'form-control'
+        .modal-footer
+          button.btn.btn-default type="button" data-dismiss="modal"
+            | キャンセル
+          = f.submit class: 'btn btn-primary'
